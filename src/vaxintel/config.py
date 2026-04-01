@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import os
 from pathlib import Path
 
 import pandas as pd
 
+from vaxintel.scoring.weights import CombinedModeWeights, OpportunityWeights, ScoreConfig
 from vaxintel.utils.metadata import SourceMetadata
 from vaxintel.utils.paths import project_root
 
@@ -25,8 +27,27 @@ class Settings:
     processed_quarterly_path: Path = field(init=False)
     source_manifest_path: Path = field(init=False)
     interim_input_paths: dict[str, Path] = field(init=False)
+    reference_year: int = field(init=False)
+    score_config: ScoreConfig = field(init=False)
 
     def __post_init__(self) -> None:
+        self.reference_year = int(os.getenv("VAXINTEL_REFERENCE_YEAR", "2024"))
+        self.score_config = ScoreConfig(
+            beef_opportunity=OpportunityWeights(
+                animal=float(os.getenv("VAXINTEL_BEEF_WEIGHT_ANIMAL", "0.40")),
+                sanitary=float(os.getenv("VAXINTEL_BEEF_WEIGHT_SANITARY", "0.30")),
+                economic=float(os.getenv("VAXINTEL_BEEF_WEIGHT_ECONOMIC", "0.30")),
+            ),
+            dairy_opportunity=OpportunityWeights(
+                animal=float(os.getenv("VAXINTEL_DAIRY_WEIGHT_ANIMAL", "0.35")),
+                sanitary=float(os.getenv("VAXINTEL_DAIRY_WEIGHT_SANITARY", "0.25")),
+                economic=float(os.getenv("VAXINTEL_DAIRY_WEIGHT_ECONOMIC", "0.40")),
+            ),
+            combined_mode=CombinedModeWeights(
+                beef=float(os.getenv("VAXINTEL_COMBINED_WEIGHT_BEEF", "0.50")),
+                dairy=float(os.getenv("VAXINTEL_COMBINED_WEIGHT_DAIRY", "0.50")),
+            ),
+        )
         self.data_dir = self.root_dir / "data"
         self.raw_dir = self.data_dir / "raw"
         self.interim_dir = self.data_dir / "interim"

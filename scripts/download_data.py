@@ -1,4 +1,5 @@
 """Download raw source data for the VaxIntel Brasil MVP."""
+# ruff: noqa: E402
 
 from __future__ import annotations
 
@@ -12,14 +13,14 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from vaxintel.config import settings
+from vaxintel.config import settings  # noqa: E402
 from vaxintel.data_ingestion.geodata import (
     build_uf_area_frame,
     create_placeholder_geodata_manifest,
     download_uf_geodata,
     export_geojson,
     read_uf_geodata,
-)
+ )  # noqa: E402
 from vaxintel.data_ingestion.ibge import (
     aggregate_bovine_slaughter_year,
     aggregate_milk_year,
@@ -27,10 +28,10 @@ from vaxintel.data_ingestion.ibge import (
     fetch_bovine_herd_uf,
     fetch_bovine_slaughter_quarterly,
     fetch_milk_quarterly,
-)
-from vaxintel.data_ingestion.mapa import create_mapa_reference
-from vaxintel.logging_utils import configure_logging, get_logger
-from vaxintel.utils.metadata import merge_manifests
+ )  # noqa: E402
+from vaxintel.data_ingestion.mapa import create_mapa_reference  # noqa: E402
+from vaxintel.logging_utils import configure_logging, get_logger  # noqa: E402
+from vaxintel.utils.metadata import merge_manifests  # noqa: E402
 
 
 def main() -> None:
@@ -38,12 +39,14 @@ def main() -> None:
     configure_logging()
     logger = get_logger(__name__)
     settings.ensure_directories()
+    reference_year = settings.reference_year
+    logger.info("Running bovine MVP ingestion for reference year %s", reference_year)
 
-    bovine_herd = fetch_bovine_herd_uf(reference_year=2024)
+    bovine_herd = fetch_bovine_herd_uf(reference_year=reference_year)
     bovine_herd.to_csv(settings.interim_input_paths["bovine_herd"], index=False)
     logger.info("Saved %s", settings.interim_input_paths["bovine_herd"])
 
-    slaughter_quarterly = fetch_bovine_slaughter_quarterly(reference_year=2024)
+    slaughter_quarterly = fetch_bovine_slaughter_quarterly(reference_year=reference_year)
     slaughter_quarterly.to_csv(settings.interim_input_paths["bovine_slaughter_quarterly"], index=False)
     aggregate_bovine_slaughter_year(slaughter_quarterly).to_csv(
         settings.interim_input_paths["bovine_slaughter"],
@@ -51,7 +54,7 @@ def main() -> None:
     )
     logger.info("Saved slaughter quarterly and annual aggregates")
 
-    milk_quarterly = fetch_milk_quarterly(reference_year=2024)
+    milk_quarterly = fetch_milk_quarterly(reference_year=reference_year)
     milk_quarterly.to_csv(settings.interim_input_paths["milk_quarterly"], index=False)
     milk_annual = aggregate_milk_year(milk_quarterly)
     milk_annual[["uf", "reference_year", "milk_production_liters", "milk_price_brl_per_liter"]].to_csv(

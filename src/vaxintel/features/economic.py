@@ -1,4 +1,4 @@
-"""Economic exposure feature engineering."""
+"""Economic feature engineering for beef, dairy and combined modes."""
 
 from __future__ import annotations
 
@@ -13,21 +13,42 @@ def build_economic_features(
     slaughter_df: pd.DataFrame,
     milk_df: pd.DataFrame,
 ) -> pd.DataFrame:
-    """Build an economic exposure score for the cattle chain."""
+    """Build separate beef, dairy and combined economic scores."""
     merged = merge_on_uf(
         [
             production_value_df[
-                [column for column in ["uf", "estimated_milk_value_brl"] if column in production_value_df.columns]
+                [column for column in ["uf", "reference_year", "estimated_milk_value_brl"] if column in production_value_df.columns]
             ],
-            slaughter_df[[column for column in ["uf", "carcass_weight_kg"] if column in slaughter_df.columns]],
-            milk_df[[column for column in ["uf", "milk_production_liters"] if column in milk_df.columns]],
+            slaughter_df[
+                [column for column in ["uf", "bovine_slaughter", "carcass_weight_kg"] if column in slaughter_df.columns]
+            ],
+            milk_df[
+                [
+                    column
+                    for column in ["uf", "milk_production_liters", "milk_price_brl_per_liter"]
+                    if column in milk_df.columns
+                ]
+            ],
+        ]
+    ).fillna(0)
+
+    merged["beef_economic_score"] = mean_score(
+        [
+            min_max_scale(merged["bovine_slaughter"]),
+            min_max_scale(merged["carcass_weight_kg"]),
         ]
     )
-    merged["economic_exposure_score"] = mean_score(
+    merged["dairy_economic_score"] = mean_score(
         [
-            min_max_scale(merged["estimated_milk_value_brl"]),
-            min_max_scale(merged["carcass_weight_kg"]),
             min_max_scale(merged["milk_production_liters"]),
+            min_max_scale(merged["milk_price_brl_per_liter"]),
+            min_max_scale(merged["estimated_milk_value_brl"]),
+        ]
+    )
+    merged["economic_exposure_score_combined"] = mean_score(
+        [
+            merged["beef_economic_score"],
+            merged["dairy_economic_score"],
         ]
     )
     return merged

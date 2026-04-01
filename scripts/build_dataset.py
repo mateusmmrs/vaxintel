@@ -1,4 +1,5 @@
-"""Build the processed analytic dataset for the VaxIntel Brasil MVP."""
+"""Build the processed analytic dataset for the VaxIntel Brasil v2."""
+# ruff: noqa: E402
 
 from __future__ import annotations
 
@@ -12,14 +13,14 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from vaxintel.config import settings
-from vaxintel.data_processing.clean import standardize_uf_frame
-from vaxintel.data_processing.validate import validate_required_columns
-from vaxintel.features.economic import build_economic_features
-from vaxintel.features.exposure import build_exposure_features
-from vaxintel.features.opportunity import build_opportunity_dataset
-from vaxintel.features.sanitary_pressure import build_sanitary_features
-from vaxintel.logging_utils import configure_logging, get_logger
+from vaxintel.config import settings  # noqa: E402
+from vaxintel.data_processing.clean import standardize_uf_frame  # noqa: E402
+from vaxintel.data_processing.validate import validate_required_columns  # noqa: E402
+from vaxintel.features.economic import build_economic_features  # noqa: E402
+from vaxintel.features.exposure import build_exposure_features  # noqa: E402
+from vaxintel.features.opportunity import build_opportunity_dataset  # noqa: E402
+from vaxintel.features.sanitary_pressure import build_sanitary_features  # noqa: E402
+from vaxintel.logging_utils import configure_logging, get_logger  # noqa: E402
 
 
 def _load_interim_inputs() -> dict[str, pd.DataFrame]:

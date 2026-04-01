@@ -9,8 +9,11 @@ REQUIRED_COLUMNS = {
     "uf",
     "animal_exposure_score",
     "sanitary_pressure_score",
-    "economic_exposure_score",
-    "vaccination_opportunity_index",
+    "beef_economic_score",
+    "dairy_economic_score",
+    "beef_opportunity_score",
+    "dairy_opportunity_score",
+    "combined_vaccination_opportunity_index",
 }
 
 
@@ -19,4 +22,3 @@ def validate_required_columns(df: pd.DataFrame) -> None:
     missing = REQUIRED_COLUMNS - set(df.columns)
     if missing:
         raise ValueError(f"Processed dataset missing required columns: {sorted(missing)}")
-

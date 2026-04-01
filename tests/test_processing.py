@@ -18,4 +18,3 @@ def test_standardize_uf_frame_renames_state_column() -> None:
 def test_validate_required_columns_raises_on_missing_output() -> None:
     with pytest.raises(ValueError):
         validate_required_columns(pd.DataFrame({"uf": ["SP"]}))
-
