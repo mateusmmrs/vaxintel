@@ -11,7 +11,6 @@ def main() -> None:
     """Launch the Streamlit dashboard."""
     root = Path(__file__).resolve().parents[1]
     pythonpath = str(root / "src")
-    env = None
     subprocess.run(
         [sys.executable, "-m", "streamlit", "run", "app/main.py"],
         check=True,

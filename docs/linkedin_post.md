@@ -1,40 +1,52 @@
-# LinkedIn Post
+# Post para LinkedIn
 
-Nas ultimas semanas, construí o `VaxIntel Brasil`, um projeto de portfolio em animal health voltado a inteligencia territorial para estrategias de vacinacao.
+Nas últimas semanas, evoluí o `VaxIntel Brasil`, um projeto de portfólio em animal health voltado a inteligência territorial para vacinação bovina.
 
-A ideia central foi simples de formular e dificil de executar bem: como priorizar territorios onde programas preventivos e vacinais podem ter maior relevancia estrategica quando combinamos escala animal, intensidade produtiva, proxies de pressao sanitaria e exposicao economica?
+A pergunta central é simples, mas relevante para negócio: **onde está a melhor combinação entre escala animal, intensidade produtiva e valor econômico exposto para orientar decisão territorial?**
 
-Para o MVP, optei por um recorte conservador:
+Na v2, deixei a leitura separada em três modos:
 
-- especie inicial: bovinos
-- granularidade: UF
-- fontes: apenas dados reais e primarios oficiais
-- stack: Python, pandas, geopandas, plotly e Streamlit
+- corte
+- leite
+- combinado
 
-O projeto integra bases do IBGE para:
+O projeto usa apenas dados reais e fontes primárias oficiais, com recorte inicial em bovinos por UF. A base integra:
 
 - efetivo bovino por UF
 - abate bovino trimestral
-- captacao de leite
-- preco medio do leite
-- geometrias oficiais das UFs
+- peso de carcaças
+- leite adquirido
+- preço médio do leite
+- geometrias oficiais do IBGE
 
-Com isso, estruturei tres camadas analiticas:
+Metodologicamente, o produto foi estruturado em quatro blocos:
 
+- `Animal Exposure Score`
 - `Sanitary Pressure Score`
-- `Economic Exposure Score`
-- `Vaccination Opportunity Index`
+- `Beef Economic Score`
+- `Dairy Economic Score`
 
-Importante: o projeto nao estima cobertura vacinal real, nao mede eficacia de vacina e nao faz afirmacoes causais. Ele foi desenhado como ferramenta de priorizacao estrategica, com metodologia transparente e limites explicitamente documentados.
+Esses blocos alimentam:
 
-O que mais me interessou nesse trabalho foi a interseccao entre data engineering, analytics, geospatial intelligence e product thinking aplicado ao agro e a saude animal.
+- `Beef Opportunity Score`
+- `Dairy Opportunity Score`
+- `Combined Vaccination Opportunity Index`
 
-Proximos passos:
+Algumas leituras interessantes do recorte atual:
 
-- expandir para aves, suinos e aquacultura
-- enriquecer a camada economica com precos setoriais adicionais
-- incorporar proxies sanitarias oficiais mais amplas
-- explorar cortes territoriais mais finos onde a qualidade do dado permitir
+- Goiás lidera o modo combinado.
+- Minas Gerais aparece muito forte pela frente leiteira.
+- Mato Grosso segue entre os líderes por escala animal e força do corte.
 
-Se voce atua em animal health, inteligencia comercial, vacinas veterinarias ou analytics aplicado ao agro, faz sentido conversar.
+Importante: o projeto **não** estima cobertura vacinal real, **não** mede eficácia de vacina e **não** faz inferência causal sobre surtos ou resultado econômico. A proposta é ser uma ferramenta auditável de priorização estratégica.
 
+Foi um trabalho que combinou data engineering, analytics, geospatial intelligence e product thinking com contexto de saúde animal.
+
+Próximos passos:
+
+- ampliar a camada econômica do corte
+- incorporar novas proxies sanitárias oficiais
+- publicar demo online
+- expandir a arquitetura para aves, suínos e aquacultura
+
+Se você atua em saúde animal, vacinas veterinárias, inteligência comercial ou analytics aplicado ao agro, faz sentido conversar.

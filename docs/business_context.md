@@ -1,30 +1,34 @@
-# Business Context
+# Contexto de negócio
 
-Empresas de saude animal precisam decidir onde alocar esforco comercial, tecnico e sanitario. Em vacinas veterinarias, a oportunidade territorial nao depende apenas do tamanho do rebanho. Ela tambem depende de intensidade produtiva, relevancia economica da cadeia e sinais indiretos de maior sensibilidade operacional.
+Empresas de saúde animal precisam decidir onde alocar esforço comercial, técnico e sanitário. Em vacinas veterinárias, a oportunidade territorial não depende apenas do tamanho do rebanho. Ela também depende de intensidade produtiva, relevância econômica da cadeia e sinais indiretos de maior sensibilidade operacional.
 
-O `VaxIntel Brasil` traduz dados publicos dispersos em uma camada executiva de priorizacao. A logica de negocio e:
+O `VaxIntel Brasil` traduz dados públicos dispersos em uma camada executiva de priorização. A lógica de negócio é:
 
-- onde ha mais animais, existe maior massa critica potencial
-- onde a atividade bovina e mais intensa, ha maior relevancia operacional
-- onde o valor economico exposto e maior, o custo de ineficiencia sanitaria tende a ser estrategicamente mais relevante
+- onde há mais animais, existe maior massa crítica potencial
+- onde a atividade bovina é mais intensa, há maior relevância operacional
+- onde o valor econômico exposto é maior, o custo de ineficiência sanitária tende a ser estrategicamente mais relevante
+- onde corte e leite se reforçam, a oportunidade territorial combinada tende a ser mais defensável comercialmente
 
-Saidas executivas esperadas:
+## Saídas executivas esperadas
 
-- ranking de UFs prioritarias
-- mapa de oportunidade
-- comparacao entre drivers de score
-- simulacao de pesos para diferentes teses comerciais
+- ranking de UFs prioritárias por corte, leite e modo combinado
+- mapa de oportunidade territorial
+- comparação entre drivers de score
+- leitura de perfil territorial: corte, leite ou misto
+- simulação de pesos para diferentes teses comerciais
 
-Usos plausiveis:
+## Usos plausíveis
 
-- planejamento de territorio
-- priorizacao de contas e canais
-- desenho de campanhas preventivas
-- inteligencia comercial e sanitaria
+- planejamento territorial da equipe comercial
+- priorização de visitas, contas e canais
+- desenho de campanhas preventivas e técnicas
+- suporte a go-to-market regional
+- defesa de budget com racional analítico auditável
+- inteligência comercial e sanitária para liderança
 
-Nao e uso adequado:
+## Uso inadequado
 
-- afirmar cobertura vacinal
-- inferir eficacia de produto
-- fazer conclusao causal epidemiologica
-
+- afirmar cobertura vacinal observada
+- inferir eficácia de produto específico
+- tratar o índice como probabilidade causal de surto
+- substituir vigilância epidemiológica oficial
